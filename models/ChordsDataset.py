@@ -34,5 +34,13 @@ class ChordsDataset:
                 current_sample_list = data_parser.parse_audio_file(path + "/" + filename)
                 obj.samples += current_sample_list
         
+        # sanity check - do all of the samples have the same size?
+        time_horizon = None
+        for sample in obj.samples:
+            assert(sample.data.all() != None)
+            if time_horizon is None:
+                time_horizon = len(sample.data)
+            assert(len(sample.data) == time_horizon)
+
         print('Created a dataset with ' + str(len(obj.samples)) + ' chord samples.')
         return obj
