@@ -1,7 +1,8 @@
 from data_parser import *
 from tests.data_parser_tests import *
 
-# chords = extract_data('raw_data')
-# print(chords)
+from models.ChordsDataset import *
 
-test1()
+dataset = ChordsDataset.create_from_path('raw_data')
+
+# test1()

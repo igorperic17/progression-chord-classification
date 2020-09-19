@@ -8,10 +8,13 @@ import csv
 
 # models
 from models.AudioSample import *
+from models.ChordsDataset import * 
 
-# parses a single .waw file containing multiple audio samples
-# labels are expected to be found in <wav_file_name>-labels.txt file
-# sample_time_horizon is the length of the sample in seconds starting from the onset
+# Parses a single .waw file containing multiple audio samples.
+# Labels are expected to be found in <wav_file_name>-labels.txt file.
+# sample_time_horizon is the length of the sample in seconds starting from the onset.
+# Returns a list of AudioSample objects containing labels and actual audio data,
+# all of this for a single provided .wav file.
 def parse_audio_file(path:string, sample_time_horizon:float = 1.0):
 
     # extract the file name from the provided full path
@@ -56,21 +59,7 @@ def parse_audio_file(path:string, sample_time_horizon:float = 1.0):
 
     return data_samples
 
-def parse_labels_file(path:string):
-    return None
 
-# crawls the folders and constructs dynamic-size vector of labels and audio features
-def extract_data(path:string):
-
-    print('Starting data extraction at path: ' + path)
-
-    chords = []
-    files = os.listdir(path)
-    for filename in files:
-        if filename.endswith('.wav'):
-            chords.append(filename.replace('.wav',''))
-    
-    return chords
 
 
 
