@@ -15,7 +15,7 @@ from models.ChordsDataset import *
 # sample_time_horizon is the length of the sample in seconds starting from the onset.
 # Returns a list of AudioSample objects containing labels and actual audio data,
 # all of this for a single provided .wav file.
-def parse_audio_file(path:string, sample_time_horizon:float = 1.0):
+def parse_audio_file(path:string, sample_time_horizon):
 
     # extract the file name from the provided full path
     filename = os.path.basename(path)

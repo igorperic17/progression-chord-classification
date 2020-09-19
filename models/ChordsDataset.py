@@ -5,42 +5,50 @@ from models.AudioSample import *
 
 import data_parser
 
-# single audio sample data and label
-
 class ChordsDataset:
 
     def __init__(self):
         self.chord_labels: [string] = []
         self.samples: [AudioSample] = []
+        self.sample_time_horizon: float = None # time horizon length in seconds
+        self.feature_vector_size: int = None # sample_time_horizon * audio_sampling_rate
 
     @classmethod
     def create_from_samples(cls, samples: [AudioSample]):
         obj = cls()
         obj.samples = samples
+        # TODO: construct the self.chord_labels based on samples.
+
         return obj
 
     # Constructs a ChordsDataset object, which is a complete list of AudioSample objects 
     # for all of the raw audio files at the provided root path.
     # The object also contains the list of unique labels.
     @classmethod
-    def create_from_path(cls, path:string):
+    def create_from_path(cls, path:string, sample_time_horizon:float):
         obj = cls()
+        obj.sample_time_horizon = sample_time_horizon
 
         files = os.listdir(path)
         for filename in files:
             if filename.endswith('.wav'):
                 print('Processing file: ' + filename)
                 obj.chord_labels.append(filename.replace('.wav',''))
-                current_sample_list = data_parser.parse_audio_file(path + "/" + filename)
+                current_sample_list = data_parser.parse_audio_file(path + "/" + filename, sample_time_horizon)
                 obj.samples += current_sample_list
         
         # sanity check - do all of the samples have the same size?
-        time_horizon = None
+        obj.feature_vector_size = None
         for sample in obj.samples:
             assert(sample.data.all() != None)
-            if time_horizon is None:
-                time_horizon = len(sample.data)
-            assert(len(sample.data) == time_horizon)
+            if obj.feature_vector_size is None:
+                obj.feature_vector_size = len(sample.data)
+            assert(len(sample.data) == obj.feature_vector_size)
 
         print('Created a dataset with ' + str(len(obj.samples)) + ' chord samples.')
         return obj
+
+    def one_hot_encoding(self, label:string):
+        encoding = [0] * len(self.chord_labels)
+        encoding[self.chord_labels == label] = 1
+        return encoding
