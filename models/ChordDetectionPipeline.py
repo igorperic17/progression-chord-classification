@@ -1,12 +1,15 @@
 from tensorflow.keras import Model, Sequential
-from tensorflow.keras.layers import Conv1D, Dense, Flatten
+from tensorflow.keras.layers import Conv1D, Dense, Flatten, Input
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.losses import CategoricalCrossentropy
+import tensorflow
 
 from models.ChordsDataset import ChordsDataset
 
-import random
+import random, string
 import numpy as np
+
+import coremltools
 
 class ChordDetectionPipeline:
 
@@ -38,12 +41,12 @@ class ChordDetectionPipeline:
         output_vector_size = len(self.dataset.chord_labels)
 
         self.pipeline = Sequential()
-        self.pipeline.add(Conv1D(16, kernel_size=100, input_shape=(feature_vector_size, 1), padding='same',activation='relu'))
+        self.pipeline.add(Input(shape=(feature_vector_size, 1), name='waveform'))
+        self.pipeline.add(Conv1D(16, kernel_size=100, padding='same',activation='relu'))
         self.pipeline.add(Flatten())
-        self.pipeline.add(Dense(output_vector_size, activation='softmax'))
+        self.pipeline.add(Dense(output_vector_size, name='chord_label', activation=tensorflow.nn.softmax))
 
         self.pipeline.compile(optimizer=Adam(0.001), loss=CategoricalCrossentropy(), metrics=['accuracy'])
-
         print(self.pipeline.summary())
 
     # start the training of the model
@@ -58,7 +61,9 @@ class ChordDetectionPipeline:
 
         # perform model fitting
         self.pipeline.fit(self.train_data, self.train_labels, \
-            epochs=10, verbose=1, validation_data=(self.validation_data, self.validation_labels))
+            epochs=1, verbose=1, validation_data=(self.validation_data, self.validation_labels))
+
+        return self.pipeline
 
     def predict(self):
 
@@ -115,3 +120,27 @@ class ChordDetectionPipeline:
         print(self.train_labels.shape)
         print(self.validation_data.shape)
         print(self.validation_labels.shape)
+
+    # saves the model as .h5 and .mlmodel for use in iOS
+    def save(self, model_name:string):
+        
+        # self.pipeline.save(model_name + '.h5', overwrite=True, include_optimizer=True)
+        # m = tensorflow.keras.models.load_model(model_name + '.h5')
+        # m = tensorflow.tool
+        
+        output_labels = self.dataset.chord_labels
+        
+        model = coremltools.convert(self.pipeline, \
+            input_names=['waveform'], output_names=['chord_label'], \
+                class_labels=output_labels, source='tensorflow')
+
+        print(model.layers)
+        print(model.layers[-1].name)
+
+        model.author = 'Igor Peric'
+        model.short_description = 'Chord classification based on raw audio data stream.'
+        model.input_description['waveform'] = 'Takes as input 1D waveform, 44.1 kHz, 16-bit PCM signed. 1 second of data, vector of size 44100 elements.'
+        # model.output_description['chord_name'] = 'Prediction of the chord name.'
+        
+        model.save(model_name + '.mlmodel')
+
