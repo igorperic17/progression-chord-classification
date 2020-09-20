@@ -15,7 +15,7 @@
 		86436ECC2516E0EA002FDFFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86436ECA2516E0EA002FDFFE /* LaunchScreen.storyboard */; };
 		86436ED72516E0EA002FDFFE /* progression_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436ED62516E0EA002FDFFE /* progression_iosTests.swift */; };
 		86436EE22516E0EA002FDFFE /* progression_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436EE12516E0EA002FDFFE /* progression_iosUITests.swift */; };
-		86436EF02516E16E002FDFFE /* ChordDetectionModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 86436EEF2516E16E002FDFFE /* ChordDetectionModel.mlmodel */; };
+		86EC42B925170265000487A7 /* ChordDetectionModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 86EC42B825170265000487A7 /* ChordDetectionModel.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		86436EDD2516E0EA002FDFFE /* progression-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "progression-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86436EE12516E0EA002FDFFE /* progression_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = progression_iosUITests.swift; sourceTree = "<group>"; };
 		86436EE32516E0EA002FDFFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		86436EEF2516E16E002FDFFE /* ChordDetectionModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ChordDetectionModel.mlmodel; sourceTree = "<group>"; };
+		86EC42B825170265000487A7 /* ChordDetectionModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = ChordDetectionModel.mlmodel; path = ../../ChordDetectionModel.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +101,7 @@
 		86436EBE2516E0E8002FDFFE /* progression-ios */ = {
 			isa = PBXGroup;
 			children = (
-				86436EEF2516E16E002FDFFE /* ChordDetectionModel.mlmodel */,
+				86EC42B825170265000487A7 /* ChordDetectionModel.mlmodel */,
 				86436EBF2516E0E8002FDFFE /* AppDelegate.swift */,
 				86436EC12516E0E8002FDFFE /* SceneDelegate.swift */,
 				86436EC32516E0E8002FDFFE /* ViewController.swift */,
@@ -265,7 +265,7 @@
 				86436EC42516E0E8002FDFFE /* ViewController.swift in Sources */,
 				86436EC02516E0E8002FDFFE /* AppDelegate.swift in Sources */,
 				86436EC22516E0E8002FDFFE /* SceneDelegate.swift in Sources */,
-				86436EF02516E16E002FDFFE /* ChordDetectionModel.mlmodel in Sources */,
+				86EC42B925170265000487A7 /* ChordDetectionModel.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

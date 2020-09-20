@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         mic = audioEngine.inputNode
         
         do {
-            audioInput = try MLMultiArray.init(shape: [1, 44100, 1], dataType: .float32)
+            audioInput = try MLMultiArray.init(shape: [1, 48000, 1], dataType: .float32)
         } catch {
             
         }
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         let micFormat = mic.inputFormat(forBus: 0)
         print(micFormat.sampleRate) // 48000
         print(micFormat.channelCount) // 1
-        mic.installTap(onBus: 0, bufferSize: 44100, format: micFormat) { (buffer, when) in
+        mic.installTap(onBus: 0, bufferSize: audioInput.shape[1].uint32Value, format: micFormat) { (buffer, when) in
             let sampleData = UnsafeBufferPointer(start: buffer.floatChannelData![0], count: Int(buffer.frameLength))
             for (i, v) in sampleData.enumerated() {
                 self.audioInput[i] = NSNumber(value: v)
