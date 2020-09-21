@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8610A4ED251912A9008D9C8B /* CircularBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8610A4EC251912A9008D9C8B /* CircularBuffer.swift */; };
+		8610A52525192973008D9C8B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8610A52425192973008D9C8B /* Extensions.swift */; };
+		8610A53025192DB9008D9C8B /* ChordDetectionModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8610A52F25192DB9008D9C8B /* ChordDetectionModel.mlmodel */; };
 		86436EC02516E0E8002FDFFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436EBF2516E0E8002FDFFE /* AppDelegate.swift */; };
 		86436EC22516E0E8002FDFFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436EC12516E0E8002FDFFE /* SceneDelegate.swift */; };
 		86436EC42516E0E8002FDFFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436EC32516E0E8002FDFFE /* ViewController.swift */; };
@@ -15,7 +18,6 @@
 		86436ECC2516E0EA002FDFFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86436ECA2516E0EA002FDFFE /* LaunchScreen.storyboard */; };
 		86436ED72516E0EA002FDFFE /* progression_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436ED62516E0EA002FDFFE /* progression_iosTests.swift */; };
 		86436EE22516E0EA002FDFFE /* progression_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436EE12516E0EA002FDFFE /* progression_iosUITests.swift */; };
-		86EC42E925170E67000487A7 /* ChordDetectionModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 86EC42E825170E67000487A7 /* ChordDetectionModel.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8610A4EC251912A9008D9C8B /* CircularBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularBuffer.swift; sourceTree = "<group>"; };
+		8610A52425192973008D9C8B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8610A52F25192DB9008D9C8B /* ChordDetectionModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = ChordDetectionModel.mlmodel; path = ../../ChordDetectionModel.mlmodel; sourceTree = "<group>"; };
 		86436EBC2516E0E8002FDFFE /* progression-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "progression-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86436EBF2516E0E8002FDFFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86436EC12516E0E8002FDFFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +55,6 @@
 		86436EDD2516E0EA002FDFFE /* progression-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "progression-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86436EE12516E0EA002FDFFE /* progression_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = progression_iosUITests.swift; sourceTree = "<group>"; };
 		86436EE32516E0EA002FDFFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		86EC42E825170E67000487A7 /* ChordDetectionModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = ChordDetectionModel.mlmodel; path = ../../ChordDetectionModel.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +105,7 @@
 		86436EBE2516E0E8002FDFFE /* progression-ios */ = {
 			isa = PBXGroup;
 			children = (
-				86EC42E825170E67000487A7 /* ChordDetectionModel.mlmodel */,
+				8610A52F25192DB9008D9C8B /* ChordDetectionModel.mlmodel */,
 				86436EBF2516E0E8002FDFFE /* AppDelegate.swift */,
 				86436EC12516E0E8002FDFFE /* SceneDelegate.swift */,
 				86436EC32516E0E8002FDFFE /* ViewController.swift */,
@@ -109,6 +113,8 @@
 				86436EC82516E0EA002FDFFE /* Assets.xcassets */,
 				86436ECA2516E0EA002FDFFE /* LaunchScreen.storyboard */,
 				86436ECD2516E0EA002FDFFE /* Info.plist */,
+				8610A4EC251912A9008D9C8B /* CircularBuffer.swift */,
+				8610A52425192973008D9C8B /* Extensions.swift */,
 			);
 			path = "progression-ios";
 			sourceTree = "<group>";
@@ -263,9 +269,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				86436EC42516E0E8002FDFFE /* ViewController.swift in Sources */,
+				8610A52525192973008D9C8B /* Extensions.swift in Sources */,
 				86436EC02516E0E8002FDFFE /* AppDelegate.swift in Sources */,
 				86436EC22516E0E8002FDFFE /* SceneDelegate.swift in Sources */,
-				86EC42E925170E67000487A7 /* ChordDetectionModel.mlmodel in Sources */,
+				8610A4ED251912A9008D9C8B /* CircularBuffer.swift in Sources */,
+				8610A53025192DB9008D9C8B /* ChordDetectionModel.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +449,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GPCTY536X6;
 				INFOPLIST_FILE = "progression-ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -459,6 +468,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GPCTY536X6;
 				INFOPLIST_FILE = "progression-ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

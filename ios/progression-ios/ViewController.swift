@@ -19,36 +19,80 @@ class ViewController: UIViewController {
     
     var audioInput: MLMultiArray!
     
+    let operationQueue: OperationQueue = OperationQueue()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        operationQueue.maxConcurrentOperationCount = 1
+        
         configureAudioSession()
         audioEngine = AVAudioEngine()
         mic = audioEngine.inputNode
+        let micFormat = mic.inputFormat(forBus: 0)
+        let targetFormat = AVAudioFormat.init(commonFormat: AVAudioCommonFormat.pcmFormatFloat32, sampleRate: 48000, channels: 1, interleaved: false)
         
+//        // handle audio piping
+//        // our new node
+//        let DJ = AVAudioMixerNode()
+//
+//        // attach the new node to the audio engine
+//        audioEngine.attach(DJ)
+//
+//        // connect input to the new node, using the input's format
+//        audioEngine.connect(mic, to: DJ, format: micFormat)
+//        // connect the new node to the output node
+////        audioEngine.connect(DJ, to: audioEngine.outputNode, format: targetFormat)
+        
+        let featureVectorSize = chordDetection.model.modelDescription.inputDescriptionsByName["waveform"]!.multiArrayConstraint!.shape[1]
         do {
-            audioInput = try MLMultiArray.init(shape: [1, 48000, 1], dataType: .float32)
+            audioInput = try MLMultiArray.init(shape: [1, featureVectorSize, 1], dataType: .float32)
         } catch {
             
         }
         
-        let micFormat = mic.inputFormat(forBus: 0)
-        print(micFormat.sampleRate) // 48000
-        print(micFormat.channelCount) // 1
-        mic.installTap(onBus: 0, bufferSize: audioInput.shape[1].uint32Value, format: micFormat) { (buffer, when) in
-            let sampleData = UnsafeBufferPointer(start: buffer.floatChannelData![0], count: Int(buffer.frameLength))
-            for (i, v) in sampleData.enumerated() {
-                self.audioInput[i] = NSNumber(value: v)
-            }
-            let input = ChordDetectionModelInput(waveform: self.audioInput)
-            do {
-                let prediction = try self.chordDetection.prediction(input: input)
-                print(prediction.featureValue(for: "Identity")!)
-            } catch {
-                
-            }
-        }
+        let circularBuffer = CircularBuffer<NSNumber>(capacity: Int(featureVectorSize))
+        let sampleSubsampling = 5
+        var subsamplingCounter = 0
+        
+        let classes = [ "-", "Amaj", "Cmaj", "Em" ]
+        
+        // tap on the new node
+        mic.installTap(onBus: 0, bufferSize: 1000, format: targetFormat, block:
+                { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
+                    let sampleData = UnsafeBufferPointer(start: buffer.floatChannelData![0], count: Int(buffer.frameLength))
+                    for (_, v) in sampleData.enumerated() {
+                        subsamplingCounter = (subsamplingCounter + 1) % sampleSubsampling
+                        if subsamplingCounter == 0 {
+                            circularBuffer.add(element: NSNumber(value: v))
+                            
+                            self.operationQueue.addOperation {
+                                
+                                for (i, v) in circularBuffer.getArray().enumerated() {
+                                    self.audioInput[i] = v
+                                }
+    //                            print(self.audioInput[0].floatValue)
+                                
+                                do {
+                                    let prediction = try self.chordDetection.prediction(waveform: self.audioInput)
+                                    if let probabilities = prediction.featureValue(for: "Identity")!.multiArrayValue {
+                                        var maxIdx = -1
+                                        for i in 0...probabilities.count {
+                                            if maxIdx == -1 || probabilities[i].floatValue > probabilities[maxIdx].floatValue {
+                                                maxIdx = i
+                                            }
+                                        }
+                                        let label = classes[maxIdx]
+                                        print(label)
+                                    }
+                                } catch {
+                                    
+                                }
+                            }
+                        }
+                    }
+        })
         startEngine()
     }
 
