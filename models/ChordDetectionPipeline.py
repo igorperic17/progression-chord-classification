@@ -53,7 +53,7 @@ class ChordDetectionPipeline:
         # self.pipeline.add(Dense(3,activation=tensorflow.nn.relu))
         self.pipeline.add(Dense(output_vector_size, name='chord_label', activation=tensorflow.nn.softmax))
 
-        self.pipeline.compile(optimizer=Adam(0.01), loss=CategoricalCrossentropy(), metrics=['accuracy'])
+        self.pipeline.compile(optimizer=Adam(0.001), loss=CategoricalCrossentropy(), metrics=['accuracy'])
         print(self.pipeline.summary())
 
     # start the training of the model

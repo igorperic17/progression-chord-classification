@@ -37,6 +37,8 @@ class ChordsDataset:
                 current_sample_list = data_parser.parse_audio_file(path + "/" + filename, sample_time_horizon)
                 obj.samples += current_sample_list
         
+        obj.chord_labels.sort()
+
         # sanity check - do all of the samples have the same size?
         obj.feature_vector_size = None
         for sample in obj.samples:
@@ -46,9 +48,40 @@ class ChordsDataset:
             assert(len(sample.data) == obj.feature_vector_size)
 
         print('Created a dataset with ' + str(len(obj.samples)) + ' chord samples.')
+
         return obj
 
     def one_hot_encoding(self, label:string):
         encoding = [0] * len(self.chord_labels)
         encoding[self.chord_labels == label] = 1
         return encoding
+
+    def perform_augmentations(self):
+
+        new_samples: [AudioSample] = []
+        for i in range(len(self.samples)):
+
+            sample = self.samples[i]
+
+            print('Performing augmentation of sample ' + str(i) + ' out of ' + str(len(self.samples)))
+
+            # magnitude scaling
+            new_samples.append(sample.get_scaled(1.4))
+            new_samples.append(sample.get_scaled(1.2))
+            new_samples.append(sample.get_scaled(0.8))
+            new_samples.append(sample.get_scaled(0.6))
+
+            # time shift
+            new_samples.append(sample.get_shifted(44)) # 0.1 second offset for 44.1 kHz
+            new_samples.append(sample.get_shifted(-44)) # 0.1 second offset for 44.1 kHz
+            new_samples.append(sample.get_shifted(88)) # 0.1 second offset for 44.1 kHz
+            new_samples.append(sample.get_shifted(-88)) # 0.1 second offset for 44.1 kHz
+            new_samples.append(sample.get_shifted(200)) # 0.1 second offset for 44.1 kHz
+            new_samples.append(sample.get_shifted(-200)) # 0.1 second offset for 44.1 kHz
+
+            # white additive noise
+            new_samples.append(sample.get_noisy(0.5))
+            new_samples.append(sample.get_noisy(1))
+            new_samples.append(sample.get_noisy(2))
+        
+        self.samples += new_samples

@@ -56,7 +56,8 @@ class ViewController: UIViewController {
         let sampleSubsampling = 5
         var subsamplingCounter = 0
         
-        let classes = [ "-", "Amaj", "Cmaj", "Em" ]
+        var classes = [ "No", "Em", "Cmaj", "Amaj" ]
+        classes.sort()
         
         // tap on the new node
         mic.installTap(onBus: 0, bufferSize: 1000, format: targetFormat, block:
