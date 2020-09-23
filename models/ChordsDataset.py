@@ -80,8 +80,8 @@ class ChordsDataset:
             new_samples.append(sample.get_shifted(-200)) # 0.1 second offset for 44.1 kHz
 
             # white additive noise
-            new_samples.append(sample.get_noisy(0.5))
-            new_samples.append(sample.get_noisy(1))
-            new_samples.append(sample.get_noisy(2))
+            # new_samples.append(sample.get_noisy(0.5))
+            # new_samples.append(sample.get_noisy(1))
+            # new_samples.append(sample.get_noisy(2))
         
         self.samples += new_samples

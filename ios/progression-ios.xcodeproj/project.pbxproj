@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8610A4ED251912A9008D9C8B /* CircularBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8610A4EC251912A9008D9C8B /* CircularBuffer.swift */; };
 		8610A52525192973008D9C8B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8610A52425192973008D9C8B /* Extensions.swift */; };
-		8610A558251A2FDE008D9C8B /* ChordDetectionModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8610A557251A2FDE008D9C8B /* ChordDetectionModel.mlmodel */; };
+		8610A580251A4495008D9C8B /* ChordDetectionModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8610A57F251A4495008D9C8B /* ChordDetectionModel.mlmodel */; };
 		86436EC02516E0E8002FDFFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436EBF2516E0E8002FDFFE /* AppDelegate.swift */; };
 		86436EC22516E0E8002FDFFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436EC12516E0E8002FDFFE /* SceneDelegate.swift */; };
 		86436EC42516E0E8002FDFFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86436EC32516E0E8002FDFFE /* ViewController.swift */; };
@@ -40,7 +40,7 @@
 /* Begin PBXFileReference section */
 		8610A4EC251912A9008D9C8B /* CircularBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularBuffer.swift; sourceTree = "<group>"; };
 		8610A52425192973008D9C8B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		8610A557251A2FDE008D9C8B /* ChordDetectionModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = ChordDetectionModel.mlmodel; path = ../../ChordDetectionModel.mlmodel; sourceTree = "<group>"; };
+		8610A57F251A4495008D9C8B /* ChordDetectionModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = ChordDetectionModel.mlmodel; path = ../../ChordDetectionModel.mlmodel; sourceTree = "<group>"; };
 		86436EBC2516E0E8002FDFFE /* progression-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "progression-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86436EBF2516E0E8002FDFFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86436EC12516E0E8002FDFFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 		86436EBE2516E0E8002FDFFE /* progression-ios */ = {
 			isa = PBXGroup;
 			children = (
-				8610A557251A2FDE008D9C8B /* ChordDetectionModel.mlmodel */,
+				8610A57F251A4495008D9C8B /* ChordDetectionModel.mlmodel */,
 				86436EBF2516E0E8002FDFFE /* AppDelegate.swift */,
 				86436EC12516E0E8002FDFFE /* SceneDelegate.swift */,
 				86436EC32516E0E8002FDFFE /* ViewController.swift */,
@@ -273,7 +273,7 @@
 				86436EC02516E0E8002FDFFE /* AppDelegate.swift in Sources */,
 				86436EC22516E0E8002FDFFE /* SceneDelegate.swift in Sources */,
 				8610A4ED251912A9008D9C8B /* CircularBuffer.swift in Sources */,
-				8610A558251A2FDE008D9C8B /* ChordDetectionModel.mlmodel in Sources */,
+				8610A580251A4495008D9C8B /* ChordDetectionModel.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

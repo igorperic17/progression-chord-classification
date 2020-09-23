@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     private var audioEngine: AVAudioEngine!
     private var mic: AVAudioInputNode!
     
+    @IBOutlet weak var chordNameLabel: UILabel!
+    
     var audioInput: MLMultiArray!
     
     let operationQueue: OperationQueue = OperationQueue()
@@ -53,7 +55,7 @@ class ViewController: UIViewController {
         }
         
         let circularBuffer = CircularBuffer<NSNumber>(capacity: Int(featureVectorSize))
-        let sampleSubsampling = 5
+        let sampleSubsampling = 10
         var subsamplingCounter = 0
         
         var classes = [ "No", "Em", "Cmaj", "Amaj" ]
@@ -63,14 +65,18 @@ class ViewController: UIViewController {
         mic.installTap(onBus: 0, bufferSize: 1000, format: targetFormat, block:
                 { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                     let sampleData = UnsafeBufferPointer(start: buffer.floatChannelData![0], count: Int(buffer.frameLength))
+                    
                     for (_, v) in sampleData.enumerated() {
                         subsamplingCounter = (subsamplingCounter + 1) % sampleSubsampling
                         if subsamplingCounter == 0 {
                             circularBuffer.add(element: NSNumber(value: v))
                             
+//                            if self.operationQueue.operationCount > 0 { return }
+                            
                             self.operationQueue.addOperation {
                                 
-                                for (i, v) in circularBuffer.getArray().enumerated() {
+                                let audioData = circularBuffer.getArray()
+                                for (i, v) in audioData.enumerated() {
                                     self.audioInput[i] = v
                                 }
     //                            print(self.audioInput[0].floatValue)
@@ -85,7 +91,11 @@ class ViewController: UIViewController {
                                             }
                                         }
                                         let label = classes[maxIdx]
-                                        print(label)
+//                                        print(label)
+                                        
+                                        DispatchQueue.main.async {
+                                            self.chordNameLabel.text = label
+                                        }
                                     }
                                 } catch {
                                     

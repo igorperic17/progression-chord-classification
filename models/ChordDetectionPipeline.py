@@ -43,7 +43,7 @@ class ChordDetectionPipeline:
         self.pipeline = Sequential()
         self.pipeline.add(Input(shape=(feature_vector_size, 1), name='waveform'))
         self.pipeline.add(Dropout(0.4))
-        self.pipeline.add(Conv1D(3, kernel_size=256, padding='same', activation='relu'))
+        self.pipeline.add(Conv1D(3, kernel_size=4000, padding='same', activation='relu'))
         self.pipeline.add(Dropout(0.4))
         # self.pipeline.add(Conv1D(64, kernel_size=32, padding='same', activation='relu'))
         # self.pipeline.add(Dropout(0.4))
@@ -53,7 +53,7 @@ class ChordDetectionPipeline:
         # self.pipeline.add(Dense(3,activation=tensorflow.nn.relu))
         self.pipeline.add(Dense(output_vector_size, name='chord_label', activation=tensorflow.nn.softmax))
 
-        self.pipeline.compile(optimizer=Adam(0.001), loss=CategoricalCrossentropy(), metrics=['accuracy'])
+        self.pipeline.compile(optimizer=Adam(0.01), loss=CategoricalCrossentropy(), metrics=['accuracy'])
         print(self.pipeline.summary())
 
     # start the training of the model
